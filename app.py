@@ -16,6 +16,19 @@ from stn.parser import parse_document
 from stn.qa import delivery_before, field_answer, fmt_evidence, fmt_value
 from stn.resolver import build_states, orphans, unknown_docs
 
+try:
+    import spaces  # noqa: F401
+
+    # Формальность хостинга: ZeroGPU-слот бесплатного аккаунта требует наличия
+    # функции с @spaces.GPU при старте; логика приложения полностью CPU.
+    @spaces.GPU
+    def _zerogpu_stub() -> None:  # pragma: no cover
+        return None
+
+    _GPU_SLOT = True
+except ImportError:
+    _GPU_SLOT = False
+
 SAMPLES_DIR = Path(__file__).parent / "sample_documents"
 
 DEFAULT_CHECK_DATE = "10.03.2026"

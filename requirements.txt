@@ -1,3 +1,4 @@
 # Для запуска без uv (например, на HF Space): pip install -r requirements.txt
 gradio==5.49.1
 numpy<2  # parity с протестированным окружением (numpy 2.x требует x86-64-v2)
+spaces>=0.32  # ZeroGPU-хостинг HF: проверяет наличие @spaces.GPU при старте
