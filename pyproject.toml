@@ -1,0 +1,19 @@
+[project]
+name = "semantic-textnavigator"
+version = "0.1.0"
+description = "Prototype for checking supply contract terms: sum, delivery deadline, document status, verifiable evidence quotes"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "gradio==5.49.1",
+    "numpy<2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
