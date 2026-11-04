@@ -7,18 +7,11 @@ from pathlib import Path
 
 import pytest
 
-from stn.parser import parse_document
-
 SAMPLES = Path(__file__).parent.parent / "sample_documents"
-FIXTURES = Path(__file__).parent / "fixtures"
 
 
 def load_sample(name: str) -> str:
     return (SAMPLES / name).read_text(encoding="utf-8")
-
-
-def parse_sample(name: str):
-    return parse_document(name, load_sample(name))
 
 
 @pytest.fixture

@@ -13,11 +13,11 @@ from pathlib import Path
 import gradio as gr
 
 from stn.parser import parse_document
-from stn.qa import delivery_before, field_answer, fmt_evidence, fmt_value
+from stn.qa import delivery_before, field_answer, fmt_value
 from stn.resolver import build_states, orphans, unknown_docs
 
 try:
-    import spaces  # noqa: F401
+    import spaces
 
     # Формальность хостинга: ZeroGPU-слот бесплатного аккаунта требует наличия
     # функции с @spaces.GPU при старте; логика приложения полностью CPU.
@@ -25,9 +25,8 @@ try:
     def _zerogpu_stub() -> None:  # pragma: no cover
         return None
 
-    _GPU_SLOT = True
 except ImportError:
-    _GPU_SLOT = False
+    pass
 
 SAMPLES_DIR = Path(__file__).parent / "sample_documents"
 
@@ -85,9 +84,12 @@ def _proposals_html(states) -> str:
     rows = []
     for state in states:
         for file, kind_word, supplier, change, status in state.proposals:
-            what = f"{fmt_value(change).replace('не позднее ', 'перенос на ') if change else 'значение не распознано'}" if change else "значение не распознано"
-            if change and change.field == "amount":
+            if change is None:
+                what = "значение не распознано"
+            elif change.field == "amount":
                 what = f"{change.value:,} руб.".replace(",", " ")
+            else:
+                what = fmt_value(change).replace("не позднее ", "перенос на ")
             rows.append(
                 f"<tr><td>{state.contract_no}</td><td>{kind_word} {supplier or ''}</td>"
                 f"<td>{what}</td><td>{change.evidence.quote if change else '—'}</td>"

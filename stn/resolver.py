@@ -13,7 +13,6 @@ from .models import (
     FIELD_DEADLINE,
     ContractState,
     Doc,
-    Evidence,
     FieldValue,
     ProposedChange,
 )

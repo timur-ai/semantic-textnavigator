@@ -416,8 +416,3 @@ def parse_document(filename: str, text: str) -> Doc:
             doc.effective_date = _effective_date(text, signed_date, header_date)
 
     return doc
-
-
-def parse_files(files: list[tuple[str, str]]) -> list[Doc]:
-    """[(имя, текст)] -> [Doc]."""
-    return [parse_document(name, text) for name, text in files]
